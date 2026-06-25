@@ -1,0 +1,1404 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Promote | Agencia de Marketing Digital</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --orange: #C87800;
+    --orange-light: #D98A00;
+    --cream: #F5F0E8;
+    --dark: #1A1208;
+    --white: #FFFFFF;
+    --gray: #6B6B6B;
+    --blue-dark: #012e46;
+    --blue-mid: #014d75;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: var(--dark);
+    color: var(--white);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 16px 48px;
+    background: rgba(200,120,0,0.95);
+    backdrop-filter: blur(12px);
+    transition: all 0.3s;
+  }
+
+  .nav-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    text-decoration: none;
+  }
+
+  .nav-logo img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+  }
+
+  .nav-logo span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.06em;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 32px;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: rgba(255,255,255,0.85);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+
+  .nav-links a:hover { color: var(--white); }
+
+  .nav-cta {
+    background: rgba(0,0,0,0.25) !important;
+    color: var(--white) !important;
+    padding: 9px 22px;
+    border-radius: 6px;
+  }
+  .nav-cta:hover { background: rgba(0,0,0,0.4) !important; }
+
+  /* HERO */
+  #hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+    background: var(--orange);
+    padding: 120px 24px 100px;
+  }
+
+  #hero::after {
+    content: 'PROMOTE';
+    position: absolute;
+    bottom: -50px;
+    left: -20px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 220px;
+    font-weight: 900;
+    color: rgba(255,255,255,0.05);
+    pointer-events: none;
+  }
+
+  .hero-bg-pattern {
+    position: absolute;
+    inset: 0;
+    opacity: 0.05;
+    background-image: repeating-linear-gradient(
+      45deg,
+      #fff 0px, #fff 1px,
+      transparent 1px, transparent 48px
+    );
+  }
+
+  .hero-logo-wrap {
+    margin-bottom: 48px;
+    opacity: 0;
+    transform: scale(0.6);
+    animation: popIn 0.9s cubic-bezier(0.175, 0.885, 0.32, 1.275) 0.2s forwards;
+  }
+
+  @keyframes popIn {
+    to { opacity: 1; transform: scale(1); }
+  }
+
+  .hero-logo-wrap img {
+    width: 160px;
+    height: 160px;
+    object-fit: contain;
+    filter: drop-shadow(0 8px 32px rgba(0,0,0,0.25));
+    animation: logoFloat 4s ease-in-out infinite, logoGlow 3s ease-in-out infinite;
+  }
+
+  @keyframes logoFloat {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes logoGlow {
+    0%, 100% { filter: drop-shadow(0 8px 32px rgba(0,0,0,0.25)); }
+    50% { filter: drop-shadow(0 8px 32px rgba(255,255,255,0.4)); }
+  }
+
+  .hero-eyebrow {
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.7);
+    margin-bottom: 20px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.8s forwards;
+  }
+
+  .hero-headline {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(64px, 13vw, 140px);
+    font-weight: 900;
+    line-height: 0.9;
+    text-transform: uppercase;
+    color: var(--white);
+    opacity: 0;
+    animation: fadeUp 0.7s ease 1s forwards;
+    letter-spacing: 0.01em;
+  }
+
+  .hero-sub-line {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(20px, 4vw, 38px);
+    font-weight: 700;
+    color: rgba(255,255,255,0.65);
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    margin-top: 18px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 1.2s forwards;
+  }
+
+  .hero-actions {
+    margin-top: 52px;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 1.4s forwards;
+  }
+
+  .btn-primary {
+    background: var(--dark);
+    color: var(--white);
+    padding: 18px 44px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: transform 0.2s, background 0.2s;
+    display: inline-block;
+  }
+  .btn-primary:hover { background: #2e1f0a; transform: translateY(-2px); }
+
+  .hero-scroll {
+    position: absolute;
+    bottom: 36px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    animation: fadeIn 1s ease 2.2s forwards;
+  }
+
+  .hero-scroll span {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.2);
+    position: relative;
+    overflow: hidden;
+  }
+  .scroll-line::after {
+    content: '';
+    position: absolute;
+    top: -100%;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    animation: scrollDown 1.6s ease infinite;
+  }
+  @keyframes scrollDown { to { top: 100%; } }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn { to { opacity: 1; } }
+
+  /* SECTIONS */
+  section { padding: 100px 24px; }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-label {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--orange-light);
+    margin-bottom: 20px;
+    border-left: 3px solid var(--orange-light);
+    padding-left: 12px;
+  }
+
+  .section-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(40px, 6vw, 72px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 24px;
+    color: var(--blue-dark);
+  }
+
+  /* REVEAL ANIMATIONS */
+  .reveal {
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  .reveal-left {
+    opacity: 0;
+    transform: translateX(-50px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal-left.visible { opacity: 1; transform: translateX(0); }
+
+  .reveal-right {
+    opacity: 0;
+    transform: translateX(50px);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+  }
+  .reveal-right.visible { opacity: 1; transform: translateX(0); }
+
+  /* =====================
+     NOSOTROS – blue-dark bg
+  ===================== */
+  #nosotros {
+    background: var(--blue-dark);
+    color: var(--white);
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Decorative blue circles behind content */
+  #nosotros::before {
+    content: '';
+    position: absolute;
+    width: 600px;
+    height: 600px;
+    border-radius: 50%;
+    background: rgba(1,77,117,0.45);
+    top: -200px;
+    right: -200px;
+    pointer-events: none;
+  }
+
+  #nosotros .bg-circle-2 {
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    background: rgba(1,77,117,0.3);
+    bottom: -150px;
+    left: -100px;
+    pointer-events: none;
+  }
+
+  #nosotros .bg-circle-3 {
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    border-radius: 50%;
+    background: rgba(1,77,117,0.25);
+    top: 50%;
+    left: 40%;
+    pointer-events: none;
+  }
+
+  /* PROMOTE watermark in nosotros – more visible, blueish */
+  #nosotros .bg-text {
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 260px;
+    color: rgba(1,100,160,0.18);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .about-text .section-label { color: var(--orange); border-left-color: var(--orange); }
+  .about-text .section-title { color: var(--white); }
+
+  .about-text p {
+    font-size: 18px;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 20px;
+  }
+
+  .about-text strong { color: var(--orange); font-weight: 700; }
+
+  .portafolio-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 12px;
+    background: var(--orange);
+    color: var(--white);
+    padding: 16px 32px;
+    border-radius: 8px;
+    font-weight: 700;
+    font-size: 14px;
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .portafolio-btn:hover { background: var(--orange-light); transform: translateY(-2px); }
+
+  /* Right column: simple stat/value cards on blue bg */
+  .about-values {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .value-card {
+    background: rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 28px 28px 28px 24px;
+    border-left: 4px solid var(--orange);
+    transition: transform 0.3s, background 0.3s;
+    position: relative;
+  }
+  .value-card:hover {
+    transform: translateX(6px);
+    background: rgba(255,255,255,0.1);
+  }
+
+  .value-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .value-card p {
+    font-size: 15px;
+    color: rgba(255,255,255,0.6);
+    line-height: 1.6;
+    margin: 0;
+  }
+
+  /* =====================
+     SERVICIOS – white bg
+  ===================== */
+  #servicios {
+    background: white;
+    color: var(--dark);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #servicios .bg-text {
+    position: absolute;
+    top: 60px;
+    right: -80px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 260px;
+    color: rgba(1,46,70,0.06);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  /* Blue decorative circles */
+  #servicios .bg-circle-1 {
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    background: rgba(1,46,70,0.04);
+    top: -200px;
+    left: -200px;
+    pointer-events: none;
+  }
+  #servicios .bg-circle-2 {
+    position: absolute;
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: rgba(1,46,70,0.04);
+    bottom: -100px;
+    right: 100px;
+    pointer-events: none;
+  }
+
+  .services-intro {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .services-intro .section-label { color: var(--orange); border-left-color: var(--orange); border-left: none; }
+  .services-intro .section-title { color: var(--blue-dark); }
+
+  /* ── Packs – vertical layout ── */
+  .packs-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .pack-card {
+    border-radius: 24px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.35s ease;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+  }
+
+  .pack-card:hover {
+    transform: translateY(-6px) scale(1.01);
+    box-shadow: 0 20px 50px rgba(0,0,0,0.18);
+  }
+
+  /* Pack header (always visible) */
+  .pack-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 32px 40px;
+    cursor: pointer;
+  }
+
+  .pack-header-left {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+
+  .pack-number {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 56px;
+    font-weight: 900;
+    line-height: 1;
+    opacity: 0.25;
+  }
+
+  .pack-title-wrap {}
+
+  .pack-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.7;
+    margin-bottom: 4px;
+  }
+
+  .pack-name {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 36px;
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+  }
+
+  .pack-toggle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    transition: transform 0.3s, background 0.2s;
+    flex-shrink: 0;
+  }
+
+  .pack-card.open .pack-toggle {
+    transform: rotate(45deg);
+    background: rgba(255,255,255,0.3);
+  }
+
+  /* Pack body (expandable) */
+  .pack-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  .pack-card.open .pack-body {
+    max-height: 1200px;
+  }
+
+  .pack-body-inner {
+    padding: 0 40px 36px;
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 32px;
+    align-items: start;
+  }
+
+  .pack-services {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .pack-service-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+  }
+
+  .pack-service-icon {
+    font-size: 20px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .pack-service-item h4 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+
+  .pack-service-item p {
+    font-size: 14px;
+    line-height: 1.6;
+    opacity: 0.75;
+  }
+
+  .pack-cta-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    min-width: 180px;
+  }
+
+  .pack-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 0 40px 24px;
+  }
+
+  .pack-deliverables {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+  }
+
+  .pack-deliverable-tag {
+    background: rgba(255,255,255,0.15);
+    border-radius: 20px;
+    padding: 6px 16px;
+    font-size: 13px;
+    font-weight: 600;
+    opacity: 0.9;
+  }
+
+  /* ── Pack 1 – Naranja ── */
+  .pack-1 { background: var(--orange); color: var(--white); }
+  .pack-1 .pack-number { color: var(--white); }
+  .pack-1 .pack-toggle { background: rgba(0,0,0,0.2); }
+  .pack-1.open .pack-toggle { background: rgba(0,0,0,0.3); }
+
+  /* ── Pack 2 – Azul oscuro ── */
+  .pack-2 { background: var(--blue-dark); color: var(--white); }
+  .pack-2 .pack-number { color: var(--white); }
+
+  /* ── Pack 3 – Dark ── */
+  .pack-3 { background: #0a0a0a; color: var(--white); }
+  .pack-3 .pack-number { color: var(--white); }
+  .pack-3 .pack-toggle { background: rgba(200,120,0,0.4); }
+  .pack-3.open .pack-toggle { background: rgba(200,120,0,0.6); }
+  .pack-3 .pack-label { color: var(--orange); }
+
+  /* CTA buttons inside packs */
+  .btn-cotizar {
+    display: inline-block;
+    padding: 14px 28px;
+    border-radius: 10px;
+    font-weight: 700;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.2s, background 0.2s;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .btn-cotizar:hover { transform: translateY(-2px); }
+
+  .pack-1 .btn-cotizar { background: var(--dark); color: var(--white); }
+  .pack-1 .btn-cotizar:hover { background: #2e1f0a; }
+
+  .pack-2 .btn-cotizar { background: var(--orange); color: var(--white); }
+  .pack-2 .btn-cotizar:hover { background: var(--orange-light); }
+
+  .pack-3 .btn-cotizar { background: var(--orange); color: var(--white); }
+  .pack-3 .btn-cotizar:hover { background: var(--orange-light); }
+
+  .btn-estudio {
+    display: inline-block;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 13px;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    transition: transform 0.2s, background 0.2s;
+    border: 1px solid rgba(255,255,255,0.35);
+    color: var(--white);
+    white-space: nowrap;
+    text-align: center;
+  }
+  .btn-estudio:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+  /* =====================
+     CONTACTO
+  ===================== */
+  #contacto {
+    background: var(--cream);
+    color: var(--dark);
+    border-top: 8px solid var(--orange);
+    border-bottom: 8px solid var(--orange);
+    position: relative;
+    overflow: hidden;
+  }
+
+  #contacto .bg-text {
+    position: absolute;
+    top: 20px;
+    right: -80px;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 260px;
+    color: rgba(1,46,70,0.06);
+    pointer-events: none;
+    user-select: none;
+    line-height: 1;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: start;
+    position: relative;
+    z-index: 1;
+  }
+
+  .contact-info .section-label { color: var(--orange); border-left-color: var(--orange); }
+
+  .contact-info h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(38px, 5vw, 62px);
+    font-weight: 900;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 20px;
+    color: var(--dark);
+  }
+
+  .contact-info > p {
+    font-size: 17px;
+    line-height: 1.7;
+    color: rgba(26,18,8,0.6);
+    margin-bottom: 36px;
+  }
+
+  .contact-items {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .contact-item {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    text-decoration: none;
+    color: var(--dark);
+    transition: color 0.2s;
+  }
+  .contact-item:hover { color: var(--orange); }
+
+  .contact-item-icon {
+    width: 50px;
+    height: 50px;
+    background: rgba(200,120,0,0.1);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+    flex-shrink: 0;
+    transition: background 0.2s;
+  }
+  .contact-item:hover .contact-item-icon { background: rgba(200,120,0,0.18); }
+
+  .contact-item-text small {
+    display: block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--orange);
+    margin-bottom: 2px;
+  }
+
+  .contact-item-text strong {
+    font-size: 16px;
+    font-weight: 600;
+  }
+
+  .contact-right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 28px;
+  }
+
+  .contact-quote {
+    background: white;
+    border-radius: 20px;
+    padding: 36px;
+    border-left: 6px solid var(--orange);
+    box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  }
+
+  .contact-quote p {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    line-height: 1.2;
+  }
+
+  .contact-quote span {
+    display: block;
+    margin-top: 10px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--gray);
+    text-transform: none;
+    font-family: 'Inter', sans-serif;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark);
+    padding: 44px 24px;
+    text-align: center;
+  }
+
+  .footer-inner {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+
+  .footer-inner img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+  }
+
+  .footer-inner span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 24px;
+    font-weight: 900;
+    color: var(--white);
+    letter-spacing: 0.08em;
+  }
+
+  footer p {
+    font-size: 13px;
+    color: rgba(255,255,255,0.6);
+  }
+
+  footer a {
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+  }
+  footer a:hover { color: var(--white); }
+
+  /* MOBILE */
+  @media (max-width: 768px) {
+    nav { padding: 14px 20px; }
+    .nav-links { display: none; }
+    section { padding: 72px 20px; }
+    .about-grid,
+    .contact-grid { grid-template-columns: 1fr; gap: 40px; }
+    .pack-body-inner { grid-template-columns: 1fr; }
+    .pack-header { padding: 24px 24px; }
+    .pack-body-inner { padding: 0 24px 28px; }
+    .pack-name { font-size: 28px; }
+  }
+
+  /* ESTUDIO */
+
+  #estudio{
+    background:white;
+    padding:100px 24px;
+  }
+
+  .studio-grid{
+    margin-top:60px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:25px;
+  }
+
+  .studio-grid img{
+    width:100%;
+    height:350px;
+    object-fit:cover;
+    border-radius:20px;
+    transition:0.4s;
+    cursor:pointer;
+    box-shadow:0 10px 30px rgba(0,0,0,0.08);
+  }
+
+  .studio-grid img:hover{
+    transform:translateY(-8px) scale(1.02);
+    box-shadow:0 20px 50px rgba(0,0,0,0.15);
+  }
+
+  @media(max-width:768px){
+    .studio-grid{
+      grid-template-columns:1fr;
+    }
+
+    .studio-grid img{
+      height:250px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+
+  .modal-estudio{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.85);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:9999;
+    padding:30px;
+  }
+
+  .modal-estudio.active{
+    display:flex;
+  }
+
+  .modal-contenido{
+    background:white;
+    width:min(1100px,100%);
+    max-height:90vh;
+    overflow:auto;
+    border-radius:20px;
+    padding:40px;
+    position:relative;
+  }
+
+  .modal-contenido h2{
+    color:#012e46;
+    margin-bottom:15px;
+  }
+
+  .modal-contenido p{
+    color:#555;
+    margin-bottom:30px;
+    line-height:1.7;
+  }
+
+  .cerrar-modal{
+    position:absolute;
+    top:20px;
+    right:25px;
+    font-size:28px;
+    cursor:pointer;
+    color:#012e46;
+  }
+
+  .studio-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+  }
+
+  .studio-grid img{
+    width:100%;
+    height:300px;
+    object-fit:cover;
+    border-radius:15px;
+    transition:.3s;
+  }
+
+  .studio-grid img:hover{
+    transform:scale(1.03);
+  }
+
+  @media(max-width:768px){
+    .studio-grid{
+      grid-template-columns:1fr;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="./logo.jpeg">
+    <span>PROMOTE</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#nosotros">Nosotros</a></li>
+    <li><a href="#servicios">Servicios</a></li>
+    <li><a href="#contacto" class="nav-cta">Contacto</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-bg-pattern"></div>
+
+  <div class="hero-logo-wrap">
+    <img src="./logo.jpeg">
+  </div>
+
+  <p class="hero-eyebrow">Agencia de marketing digital · Costa Rica</p>
+
+  <h1 class="hero-headline">
+    Agencia de<br>Marketing Digital
+  </h1>
+
+  <span class="hero-sub-line">@promotee.cr</span>
+
+  <div class="hero-actions">
+    <a href="#servicios" class="btn-primary">Ver servicios</a>
+  </div>
+
+  <div class="hero-scroll">
+    <div class="scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- NOSOTROS -->
+<section id="nosotros">
+  <!-- Decorative elements -->
+  <div class="bg-circle-2"></div>
+  <div class="bg-circle-3"></div>
+  <span class="bg-text">PROMOTE</span>
+
+<div class="about-grid">
+  <div class="about-text reveal-left">
+    <span class="section-label">¿Quiénes somos?</span>
+    <h2 class="section-title">Creamos con<br>intención</h2>
+
+    <p>
+      Somos un equipo que disfruta transformar ideas en <strong>contenido que conecta</strong>. Nos apasiona entender a cada marca, su historia, su propósito y su público, para crear <strong>estrategias que realmente generen resultados</strong>.
+    </p>
+
+    <p>
+      No hacemos contenido por hacer: creamos con intención, creatividad y enfoque. Nuestro objetivo es que tu marca se vea, se escuche y se sienta como debe: <strong>auténtica, coherente y fuerte</strong>.
+    </p>
+
+    <a href="https://j28gamboaad90.myportfolio.com/" target="_blank" class="portafolio-btn">
+      Conoce nuestros trabajos →
+    </a>
+  </div>
+</div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios">
+  <div class="bg-text">PROMOTE</div>
+  <div class="bg-circle-1"></div>
+  <div class="bg-circle-2"></div>
+
+  <div class="container">
+    <div class="services-intro reveal">
+      <span class="section-label" style="border-left:none;">Nuestros servicios</span>
+      <h2 class="section-title">Elige tu servicio</h2>
+      <p style="font-size:17px;color:rgba(1,46,70,0.65);max-width:420px;margin:0 auto;line-height:1.65;">Seleccioná el servicio que mejor se adapta a tu marca. Tocá cada card para ver los detalles.</p>
+    </div>
+
+    <div class="packs-wrapper">
+
+      <!-- PACK 1: REDES SOCIALES -->
+      <div class="pack-card pack-1 reveal" onclick="togglePack(this)">
+        <div class="pack-header">
+          <div class="pack-header-left">
+            <span class="pack-number">01</span>
+            <div class="pack-title-wrap">
+              <div class="pack-label">Pack completo</div>
+              <div class="pack-name">📱 Redes Sociales</div>
+            </div>
+          </div>
+          <div class="pack-toggle">+</div>
+        </div>
+        <div class="pack-body">
+          <div class="pack-divider"></div>
+          <div class="pack-body-inner">
+            <div class="pack-services">
+              <div class="pack-service-item">
+                <span class="pack-service-icon">📅</span>
+                <div>
+                  <h4>Estrategia de Contenido</h4>
+                  <p>Planeación y calendarización del contenido según los objetivos del cliente para sus redes sociales.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">📸</span>
+                <div>
+                  <h4>Creación de Contenido</h4>
+                  <p>Elaboración del material gráfico para las redes sociales: fotografía, diseños, videos.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">💬</span>
+                <div>
+                  <h4>Community Management</h4>
+                  <p>Publicación del contenido, atención y seguimiento a interacciones y mantenimiento general de las redes.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">💰</span>
+                <div>
+                  <h4>Manejo de Inversión</h4>
+                  <p>Creación de estrategia y administración del presupuesto para pauta en redes sociales según los objetivos del cliente.</p>
+                </div>
+              </div>
+              <div style="margin-top:12px;">
+                <div style="font-size:11px;font-weight:700;letter-spacing:0.16em;text-transform:uppercase;opacity:0.7;margin-bottom:10px;">Entregables mensuales</div>
+                <div class="pack-deliverables">
+                  <span class="pack-deliverable-tag">🎬 6 Videos</span>
+                  <span class="pack-deliverable-tag">🖼️ 6 Carruseles / Flyers</span>
+                  <span class="pack-deliverable-tag">📖 8 Historias</span>
+                </div>
+              </div>
+            </div>
+            <div class="pack-cta-wrap">
+              <a href="https://wa.me/50663944010?text=%C2%BFCu%C3%A1l%20servicio%20est%C3%A1s%20buscando%3F%0A%0A%F0%9F%93%8C%20Nombre%3A%0A%0A%F0%9F%93%8C%20%C2%BFCuentas%20con%20un%20negocio%20o%20una%20marca%20personal%3F%0A%0A%C2%BFD%C3%A9%20qu%C3%A9%20trata%20el%20negocio%20o%20marca%20personal%3F%0A%0A%C2%BFD%C3%B3nde%20est%C3%A1n%20ubicados%3F%0A%0A%C2%BFCuentan%20con%20redes%20sociales%3F%20%28S%C3%AD%20%2F%20No%29%0A%0A%C2%BFCon%20cu%C3%A1les%20redes%20sociales%20cuentan%20actualmente%3F%0A%0AEn%20caso%20de%20S%C3%8D%20tener%20redes%2C%20%C2%BFC%C3%B3mo%20podemos%20encontrarte%3F%20%28Ej%3A%20Instagram%3A%20%40promotee.cr%29" target="_blank" class="btn-cotizar">
+                Cotización Personal
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PACK 2: CREACIÓN DE CONTENIDO -->
+      <div class="pack-card pack-2 reveal" style="transition-delay:0.1s" onclick="togglePack(this)">
+        <div class="pack-header">
+          <div class="pack-header-left">
+            <span class="pack-number">02</span>
+            <div class="pack-title-wrap">
+              <div class="pack-label">Pack creativo</div>
+              <div class="pack-name">🎥 Creación de Contenido</div>
+            </div>
+          </div>
+          <div class="pack-toggle">+</div>
+        </div>
+        <div class="pack-body">
+          <div class="pack-divider"></div>
+          <div class="pack-body-inner">
+            <div class="pack-services">
+              <div class="pack-service-item">
+                <span class="pack-service-icon">📋</span>
+                <div>
+                  <h4>Estrategias de Contenido</h4>
+                  <p>Planificación estratégica orientada a los objetivos de tu marca y tu audiencia.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">🎬</span>
+                <div>
+                  <h4>Videos Profesionales</h4>
+                  <p>Producción y edición de videos de alta calidad para tus plataformas digitales.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">📷</span>
+                <div>
+                  <h4>Fotografía Profesional</h4>
+                  <p>Sesiones fotográficas que capturan la esencia y personalidad de tu marca.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">✂️</span>
+                <div>
+                  <h4>Edición de Contenido</h4>
+                  <p>Post-producción y edición creativa de todo el material visual de tu marca.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">🗓️</span>
+                <div>
+                  <h4>Planes de Contenido</h4>
+                  <p>Desarrollo de calendarios de contenido con temas, formatos y frecuencia definidos.</p>
+                </div>
+              </div>
+            </div>
+            <div class="pack-cta-wrap">
+              <a href="https://wa.me/50663944010?text=%C2%BFCu%C3%A1l%20servicio%20est%C3%A1s%20buscando%3F%0A%0A%F0%9F%93%8C%20Nombre%3A%0A%0A%F0%9F%93%8C%20%C2%BFCuentas%20con%20un%20negocio%20o%20una%20marca%20personal%3F%0A%0A%C2%BFD%C3%A9%20qu%C3%A9%20trata%20el%20negocio%20o%20marca%20personal%3F%0A%0A%C2%BFD%C3%B3nde%20est%C3%A1n%20ubicados%3F%0A%0A%C2%BFCuentan%20con%20redes%20sociales%3F%20%28S%C3%AD%20%2F%20No%29%0A%0A%C2%BFCon%20cu%C3%A1les%20redes%20sociales%20cuentan%20actualmente%3F%0A%0AEn%20caso%20de%20S%C3%8D%20tener%20redes%2C%20%C2%BFC%C3%B3mo%20podemos%20encontrarte%3F%20%28Ej%3A%20Instagram%3A%20%40promotee.cr%29" target="_blank" class="btn-cotizar">
+                Cotización Personal
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PACK 3: ESTUDIO -->
+      <div class="pack-card pack-3 reveal" style="transition-delay:0.2s" onclick="togglePack(this)">
+        <div class="pack-header">
+          <div class="pack-header-left">
+            <span class="pack-number">03</span>
+            <div class="pack-title-wrap">
+              <div class="pack-label" style="color:var(--orange);">Pack estudio</div>
+              <div class="pack-name">🎙️ Estudio</div>
+            </div>
+          </div>
+          <div class="pack-toggle">+</div>
+        </div>
+        <div class="pack-body">
+          <div class="pack-divider" style="background:rgba(255,255,255,0.1);"></div>
+          <div class="pack-body-inner">
+            <div class="pack-services">
+              <div class="pack-service-item">
+                <span class="pack-service-icon">🎙️</span>
+                <div>
+                  <h4>Podcast</h4>
+                  <p>Grabación, edición y producción de podcasts con equipo profesional y ambiente acústico controlado.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">🎬</span>
+                <div>
+                  <h4>Producción de Video</h4>
+                  <p>Producción audiovisual completa con equipos de alta gama para contenido de calidad cinematográfica.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">✨</span>
+                <div>
+                  <h4>Creación de Contenido</h4>
+                  <p>Espacio equipado para crear todo tipo de contenido creativo para tus plataformas digitales.</p>
+                </div>
+              </div>
+              <div class="pack-service-item">
+                <span class="pack-service-icon">🧠</span>
+                <div>
+                  <h4>Espacio para Crear</h4>
+                  <p>Acceso a nuestro estudio completamente equipado y ambientado para sesiones de creación de contenido.</p>
+                </div>
+              </div>
+            </div>
+            <div class="pack-cta-wrap">
+              <a href="https://wa.me/50663944010?text=%C2%BFCu%C3%A1l%20servicio%20est%C3%A1s%20buscando%3F%0A%0A%F0%9F%93%8C%20Nombre%3A%0A%0A%F0%9F%93%8C%20%C2%BFCuentas%20con%20un%20negocio%20o%20una%20marca%20personal%3F%0A%0A%C2%BFD%C3%A9%20qu%C3%A9%20trata%20el%20negocio%20o%20marca%20personal%3F%0A%0A%C2%BFD%C3%B3nde%20est%C3%A1n%20ubicados%3F%0A%0A%C2%BFCuentan%20con%20redes%20sociales%3F%20%28S%C3%AD%20%2F%20No%29%0A%0A%C2%BFCon%20cu%C3%A1les%20redes%20sociales%20cuentan%20actualmente%3F%0A%0AEn%20caso%20de%20S%C3%8D%20tener%20redes%2C%20%C2%BFC%C3%B3mo%20podemos%20encontrarte%3F%20%28Ej%3A%20Instagram%3A%20%40promotee.cr%29" target="_blank" class="btn-cotizar">
+                Cotización Personal
+              </a>
+            <a href="#" class="btn-estudio" onclick="abrirEstudio(); event.stopPropagation(); return false;">
+  📸 Conoce nuestro estudio
+</a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACTO -->
+<section id="contacto">
+  <span class="bg-text">PROMOTE</span>
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info reveal-left">
+        <span class="section-label">Contacto</span>
+        <h2>Hablemos<br>de tu marca</h2>
+        <p>Estamos listos para llevar tu marca al siguiente nivel. Escribinos y construyamos algo increíble juntos.</p>
+
+        <div class="contact-items">
+          <a href="https://wa.me/50663944010" target="_blank" class="contact-item">
+            <div class="contact-item-icon">📱</div>
+            <div class="contact-item-text">
+              <small>WhatsApp</small>
+              <strong>+506 6394-4010</strong>
+            </div>
+          </a>
+          <a href="https://www.instagram.com/promotee.cr" target="_blank" class="contact-item">
+            <div class="contact-item-icon">📸</div>
+            <div class="contact-item-text">
+              <small>Instagram</small>
+              <strong>@promotee.cr</strong>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-right reveal-right">
+        <div class="contact-quote">
+          <p> Cuenta tu historia. Haz crecer tu marca</p>
+          <span>— Promote · @promotee.cr</span>
+        </div>
+        <a href="https://wa.me/50663944010?text=%C2%BFCu%C3%A1l%20servicio%20est%C3%A1s%20buscando%3F%0A%0A%F0%9F%93%8C%20Nombre%3A%0A%0A%F0%9F%93%8C%20%C2%BFCuentas%20con%20un%20negocio%20o%20una%20marca%20personal%3F%0A%0A%C2%BFD%C3%A9%20qu%C3%A9%20trata%20el%20negocio%20o%20marca%20personal%3F%0A%0A%C2%BFD%C3%B3nde%20est%C3%A1n%20ubicados%3F%0A%0A%C2%BFCuentan%20con%20redes%20sociales%3F%20%28S%C3%AD%20%2F%20No%29%0A%0A%C2%BFCon%20cu%C3%A1les%20redes%20sociales%20cuentan%20actualmente%3F%0A%0AEn%20caso%20de%20S%C3%8D%20tener%20redes%2C%20%C2%BFC%C3%B3mo%20podemos%20encontrarte%3F%20%28Ej%3A%20Instagram%3A%20%40promotee.cr%29" target="_blank" class="btn-cotizar" style="background:var(--orange);color:white;display:block;text-align:center;padding:18px 32px;border-radius:12px;font-size:15px;">
+          💬 Cotización Personal por WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+   <img src="./logo.jpeg">
+    <span>PROMOTE</span>
+  </div>
+  <p>© 2026 Promote · <a href="https://www.instagram.com/promotee.cr" target="_blank">@promotee.cr</a> · Costa Rica</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav shadow on scroll
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.boxShadow = window.scrollY > 60
+      ? '0 4px 20px rgba(0,0,0,0.25)'
+      : 'none';
+  });
+
+  // Pack toggle
+  function togglePack(card) {
+    const isOpen = card.classList.contains('open');
+    // Close all
+    document.querySelectorAll('.pack-card').forEach(c => c.classList.remove('open'));
+    // Open clicked if it was closed
+    if (!isOpen) card.classList.add('open');
+  }
+
+  function abrirEstudio() {
+    document
+      .getElementById("modalEstudio")
+      .classList.add("active");
+  }
+
+  function cerrarEstudio() {
+    document
+      .getElementById("modalEstudio")
+      .classList.remove("active");
+  }
+</script>
+<div id="modalEstudio" class="modal-estudio">
+
+  <div class="modal-contenido">
+
+    <span class="cerrar-modal" onclick="cerrarEstudio()">✕</span>
+
+    <h2>Nuestro Estudio</h2>
+
+    <p>
+      Contamos con un estudio profesional totalmente equipado para la creación de contenido, podcasts, fotografía y producciones audiovisuales. Diseñado para ofrecer una experiencia cómoda, moderna y con resultados de alta calidad.
+    </p>
+
+    <div class="studio-grid">
+      <img src="./Studio (1).jpeg">
+      <img src="./Studio (2).jpeg">
+      <img src="./Studio (3).jpeg">
+      <img src="./Studio (4).jpeg">
+    </div>
+
+  </div>
+
+</div>
+</body>
+</html>
